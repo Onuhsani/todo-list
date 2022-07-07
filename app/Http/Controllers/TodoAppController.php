@@ -7,29 +7,35 @@ use App\Models\Todo;
 
 class TodoAppController extends Controller
 {
-    public function index(){
+
+
+    public function index()
+    {
         $todo = Todo::all();
         return view('index')->with('todos', $todo);
-     }
+    }
 
-     public function create(){
+
+    public function create()
+    {
         return view('create');
     }
-    public function details(Todo $todo){
 
+
+    public function details(Todo $todo)
+    {
         return view('details')->with('todos', $todo);
-    
     }
     
-    public function edit(Todo $todo){
-    
+
+    public function edit(Todo $todo)
+    {
         return view('edit')->with('todos', $todo);
-    
     }
 
 
-    public function update(Todo $todo){
-    
+    public function update(Todo $todo)
+    {
         try {
             $this->validate(request(), [
                 'name' => ['required'],
@@ -41,7 +47,6 @@ class TodoAppController extends Controller
 
         $data = request()->all();
 
-       
         $todo->name = $data['name'];
         $todo->description = $data['description'];
         $todo->save();
@@ -51,18 +56,17 @@ class TodoAppController extends Controller
         return redirect('/');
     
     }
-   public function delete(Todo $todo){
 
+
+   public function delete(Todo $todo)
+   {
         $todo->delete();
-
         return redirect('/');
-
     }
 
 
-    public function store(){
-
-
+    public function store()
+    {
         try {
             $this->validate(request(), [
                 'name' => ['required'],
@@ -73,8 +77,6 @@ class TodoAppController extends Controller
 
 
         $data = request()->all();
-
-
         $todo = new Todo();
 
         $todo->name = $data['name'];
